@@ -11,10 +11,14 @@ public class ChristmasLights {
     }
 
     public void turnOn(int startRow, int startCol, int endRow, int endCol) {
-        if(!lightIsOn[startRow][startCol]) {
-            lightIsOn[startRow][startCol] = true;
-            lightsOnCount++;
+        for (int i = startRow; i <= endRow; i++) {
+            for (int j = startCol; j <= endCol; j++) {
+                if (!lightIsOn[i][j]) {
+                    lightIsOn[i][j] = true;
+                    lightsOnCount++;
+                }
+            }
         }
     }
-    
+
 }

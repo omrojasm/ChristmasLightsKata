@@ -37,6 +37,13 @@ class ChristmasLightsTest {
         assertEquals(1, christmasLights.getNumberOfLightsOn());
     }
 
+    @Test
+    void shouldTurnOn3By3RangeOfLights() {
+        christmasLights.turnOn(0, 0, 2, 2);
+
+        assertEquals(9, christmasLights.getNumberOfLightsOn());
+    }
+
     private void turnOnTopLeftLight() {
         christmasLights.turnOn(0,0,0,0);
     }
