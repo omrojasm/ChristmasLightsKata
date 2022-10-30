@@ -20,7 +20,10 @@ public class ChristmasLights {
             }
             return null;
         };
-        applyFunction(startRow, startCol, endRow, endCol, onFunction);
+        applyFunction(
+            new LightBulbLocation(startRow, startCol),
+            new LightBulbLocation(endRow, endCol),
+            onFunction);
 
     }
 
@@ -32,8 +35,10 @@ public class ChristmasLights {
             }
             return null;
         };
-
-        applyFunction(startRow, startCol, endRow, endCol, offFunction);
+        applyFunction(
+            new LightBulbLocation(startRow, startCol),
+            new LightBulbLocation(endRow, endCol),
+            offFunction);
     }
 
     public void toggle(int startRow, int startCol, int endRow, int endCol) {
@@ -43,20 +48,22 @@ public class ChristmasLights {
             return null;
         };
 
-        applyFunction(startRow, startCol, endRow, endCol, toggleFunction);
+        applyFunction(
+                new LightBulbLocation(startRow, startCol),
+                new LightBulbLocation(endRow, endCol),
+                toggleFunction);
     }
 
     private void applyFunction(
-            int startRow,
-            int startCol,
-            int endRow,
-            int endCol,
+            LightBulbLocation topLeft,
+            LightBulbLocation bottomRight,
             BiFunction<Integer, Integer, Void> function) {
-        for (int i = startRow; i <= endRow; i++) {
-            for (int j = startCol; j <= endCol; j++) {
+        for (int i = topLeft.getRow(); i <= bottomRight.getRow(); i++) {
+            for (int j = topLeft.getCol(); j <= bottomRight.getCol(); j++) {
                 function.apply(i, j);
             }
         }
+
     }
 
 }
