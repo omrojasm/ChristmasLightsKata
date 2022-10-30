@@ -12,4 +12,13 @@ class ChristmasLightsTest {
 
         assertEquals(0, christmasLights.getNumberOfLightsOn());
     }
+
+    @Test
+    void shouldTurnOneLightOn() {
+        var christmasLights = new ChristmasLights();
+
+        christmasLights.turnOn(0,0,0,0);
+
+        assertEquals(1, christmasLights.getNumberOfLightsOn());
+    }
 }
