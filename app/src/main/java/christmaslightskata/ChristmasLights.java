@@ -21,4 +21,15 @@ public class ChristmasLights {
         }
     }
 
+    public void turnOff(int startRow, int startCol, int endRow, int endCol) {
+        for (int i = startRow; i <= endRow; i++) {
+            for (int j = startCol; j <= endCol; j++) {
+                if (lightIsOn[i][j]) {
+                    lightIsOn[i][j] = false;
+                    lightsOnCount--;
+                }
+            }
+        }
+    }
+
 }
