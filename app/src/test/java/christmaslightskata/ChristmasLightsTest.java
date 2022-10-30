@@ -57,7 +57,7 @@ class ChristmasLightsTest {
     void shouldKeepCountWhenTurningOffSameLight() {
 
         turnOnTopLeftLight();
-        
+
         turnOffTopLeftLight();
         turnOffTopLeftLight();
 
@@ -68,21 +68,64 @@ class ChristmasLightsTest {
     void shouldTurnOff2By2RangeOfLights() {
         turnOn3By3LightsStartingFromTopLeft();
 
-        christmasLights.turnOff(0, 0, 1, 1);
-        
+        turnOff2By2LightsStartingFromTopLeft();
+
         assertEquals(5, christmasLights.getNumberOfLightsOn());
 
     }
 
+    @Test
+    void shouldToggleOffALightThatIsOn() {
+        turnOnTopLeftLight();
+
+        toggleTopLeftLight();
+
+        assertEquals(0, christmasLights.getNumberOfLightsOn());
+    }
+
+    @Test
+    void shouldToggleOnALightThatIsOff() {
+        turnOffTopLeftLight();
+
+        toggleTopLeftLight();
+
+        assertEquals(1, christmasLights.getNumberOfLightsOn());
+    }
+
+    @Test
+    void shouldToggleRangeOffLights() {
+        turnOnFirstTwoRows();
+
+        toggleFirstRow();
+
+        assertEquals(1000, christmasLights.getNumberOfLightsOn());
+    }
+
+    private void turnOnFirstTwoRows() {
+        christmasLights.turnOn(0, 0, 1, 999);
+    }
+
+    private void toggleFirstRow() {
+        christmasLights.toggle(0, 0, 0, 999);
+    }
+
     private void turnOffTopLeftLight() {
-        christmasLights.turnOff(0,0,0,0);
+        christmasLights.turnOff(0, 0, 0, 0);
     }
 
     private void turnOnTopLeftLight() {
-        christmasLights.turnOn(0,0,0,0);
+        christmasLights.turnOn(0, 0, 0, 0);
     }
 
     private void turnOn3By3LightsStartingFromTopLeft() {
         christmasLights.turnOn(0, 0, 2, 2);
+    }
+
+    private void turnOff2By2LightsStartingFromTopLeft() {
+        christmasLights.turnOff(0, 0, 1, 1);
+    }
+
+    private void toggleTopLeftLight() {
+        christmasLights.toggle(0, 0, 0, 0);
     }
 }

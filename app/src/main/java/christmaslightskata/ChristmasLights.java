@@ -36,6 +36,16 @@ public class ChristmasLights {
         applyFunction(startRow, startCol, endRow, endCol, offFunction);
     }
 
+    public void toggle(int startRow, int startCol, int endRow, int endCol) {
+        BiFunction<Integer, Integer, Void> toggleFunction = (i, j) -> {
+            lightsOnCount += lightIsOn[i][j] ? -1 : 1;
+            lightIsOn[i][j] = !lightIsOn[i][j];
+            return null;
+        };
+
+        applyFunction(startRow, startCol, endRow, endCol, toggleFunction);
+    }
+
     private void applyFunction(
             int startRow,
             int startCol,
