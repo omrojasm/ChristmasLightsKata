@@ -1,7 +1,5 @@
 package christmaslightskata;
 
-import java.util.function.BiFunction;
-
 public class ChristmasLights {
 
     private boolean[][] lightIsOn = new boolean[1000][1000];
@@ -13,57 +11,64 @@ public class ChristmasLights {
     }
 
     public void turnOn(int startRow, int startCol, int endRow, int endCol) {
-        BiFunction<Integer, Integer, Void> onFunction = (i, j) -> {
+
+        Operation on = (i, j) -> {
             if (!lightIsOn[i][j]) {
                 lightIsOn[i][j] = true;
                 lightsOnCount++;
             }
-            return null;
         };
-        applyFunction(
-            new LightBulbLocation(startRow, startCol),
-            new LightBulbLocation(endRow, endCol),
-            onFunction);
+
+        applyOperation(
+                new LightBulbLocation(startRow, startCol),
+                new LightBulbLocation(endRow, endCol),
+                on);
 
     }
 
     public void turnOff(int startRow, int startCol, int endRow, int endCol) {
-        BiFunction<Integer, Integer, Void> offFunction = (i, j) -> {
+
+        Operation off = (i, j) -> {
             if (lightIsOn[i][j]) {
                 lightIsOn[i][j] = false;
                 lightsOnCount--;
             }
-            return null;
         };
-        applyFunction(
-            new LightBulbLocation(startRow, startCol),
-            new LightBulbLocation(endRow, endCol),
-            offFunction);
+
+        applyOperation(
+                new LightBulbLocation(startRow, startCol),
+                new LightBulbLocation(endRow, endCol),
+                off);
     }
 
     public void toggle(int startRow, int startCol, int endRow, int endCol) {
-        BiFunction<Integer, Integer, Void> toggleFunction = (i, j) -> {
+
+        Operation toggleOperation = (i, j) -> {
             lightsOnCount += lightIsOn[i][j] ? -1 : 1;
             lightIsOn[i][j] = !lightIsOn[i][j];
-            return null;
         };
 
-        applyFunction(
+        applyOperation(
                 new LightBulbLocation(startRow, startCol),
                 new LightBulbLocation(endRow, endCol),
-                toggleFunction);
+                toggleOperation);
     }
 
-    private void applyFunction(
+    private void applyOperation(
             LightBulbLocation topLeft,
             LightBulbLocation bottomRight,
-            BiFunction<Integer, Integer, Void> function) {
+            Operation operation) {
         for (int i = topLeft.getRow(); i <= bottomRight.getRow(); i++) {
             for (int j = topLeft.getCol(); j <= bottomRight.getCol(); j++) {
-                function.apply(i, j);
+                operation.apply(i, j);
             }
         }
 
+    }
+
+    @FunctionalInterface
+    private interface Operation {
+        void apply(Integer row, Integer col);
     }
 
 }
